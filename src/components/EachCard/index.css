@@ -15,9 +15,9 @@
 
 .text {
   height: 120px;
-  width: 80%;
+  width: 100%;
   justify-content: flex-start;
-  border: solid 1px gray;
+  border: solid 0.000000000001rem rgb(212, 211, 211);
   margin-bottom: 30px;
   padding-left: 15px;
   padding-top: 10px;

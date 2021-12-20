@@ -48,8 +48,6 @@ const EachCard = ({ eachData }) => {
                   flex: 1,
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "stretch",
-                  justifyContent: "flex-end",
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>

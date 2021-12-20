@@ -11,6 +11,7 @@ const Tag = ({ eachData }) => {
     <div
       style={{
         marginBottom: "40px",
+        marginLeft: "-20px",
       }}
     >
       {eachData.interventionTag === true ? (
