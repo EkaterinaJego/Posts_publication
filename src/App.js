@@ -14,7 +14,9 @@ function App() {
   // Pour récupérer l'ensemble des posts :
 
   useEffect(() => {
-    fetch("http://localhost:4000/post").then(function (response) {
+    fetch("https://tech-backend-proj.herokuapp.com/posts").then(function (
+      response
+    ) {
       var contentType = response.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1) {
         return response.json().then(function (json) {
@@ -25,6 +27,7 @@ function App() {
         console.log("Il n'y a pas du JSON");
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setData, data, Modal, ModifyModal]);
 
   return isLoading ? (

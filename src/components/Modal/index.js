@@ -20,7 +20,11 @@ export default function BasicModal() {
   const [signalTag, setSignalTag] = useState(false);
   const [interventionTag, setInterventionTag] = useState(false);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+    setSignalTag(false);
+    setInterventionTag(false);
+  };
   const handleClose = () => setOpen(false);
 
   const handleContent = (event) => {
@@ -43,6 +47,12 @@ export default function BasicModal() {
     setName("");
     setContent("");
     handleClose();
+    if (signalTag) {
+      setSignalTag(!signalTag);
+    }
+    if (interventionTag) {
+      setInterventionTag(!interventionTag);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -53,21 +63,26 @@ export default function BasicModal() {
       let time = dayMonthTime[4].split(":");
       let infoAboutTime = `${time[0]}h${time[1]}`;
 
-      const response = await axios.post("http://localhost:4000/post", {
-        name: name,
-        content: content,
-        signalTag: signalTag,
-        interventionTag: interventionTag,
-        day: infoAboutDay,
-        time: infoAboutTime,
-      });
+      let id = Date();
+
+      const response = await axios.post(
+        "https://tech-backend-proj.herokuapp.com/posts",
+        {
+          name: name,
+          content: content,
+          signalTag: signalTag,
+          interventionTag: interventionTag,
+          day: infoAboutDay,
+          time: infoAboutTime,
+          id: id,
+        }
+      );
       if (response.status === 200 || response.status === 201) {
         alert("Votre post a été publié");
+        console.log(response);
         handleClose();
         setName("");
         setContent("");
-        // setInterventionTag(false);
-        // setSignalTag(false);
       }
     } catch (error) {
       alert("Une erreur est survenue");

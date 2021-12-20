@@ -1,32 +1,41 @@
 import React from "react";
 import "./index.css";
 import Card from "@mui/material/Card";
-
 import Avatar from "@mui/material/Avatar";
 import ModifyModal from "../ModifyModal/index";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Picture from "../../picture.jpg";
 import Tag from "../Tag/index";
 import axios from "axios";
+import { useState } from "react";
 
 const EachCard = ({ eachData }) => {
+  const [clicked, setClicked] = useState(false);
+
   // Pour effacer un post
   const handleDelete = async () => {
+    setClicked(true);
     try {
       const response = await axios.delete(
-        `http://localhost:4000/post/${eachData.id}`
+        `https://tech-backend-proj.herokuapp.com/posts/${eachData.id}`
       );
       if (response) {
         alert("Votre post a bien été supprimé");
       }
     } catch (error) {
       alert("Une erreur est survenue");
+      console.log(error);
     }
   };
 
   return (
-    <div style={{ display: "flex", flexDirection:"" }}>
-      <Card variant="outlined" id="card_main">
+    <div
+      style={{
+        width: "600px",
+        display: "flex",
+      }}
+    >
+      <Card id="card_main">
         <div id="maindiv">
           <Avatar alt="profile_picture" src={Picture} id="avatar" />
           <div style={{ width: "100%" }}>
@@ -57,7 +66,7 @@ const EachCard = ({ eachData }) => {
                       sx={{
                         width: "30px",
                         height: "30px",
-                        color: "gray",
+                        color: clicked ? "red" : "gray",
                       }}
                       onClick={handleDelete}
                     />
@@ -70,7 +79,11 @@ const EachCard = ({ eachData }) => {
             <div>
               <div className="text">{eachData.content}</div>
             </div>
-            <div>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
               <Tag eachData={eachData} />
             </div>
           </div>

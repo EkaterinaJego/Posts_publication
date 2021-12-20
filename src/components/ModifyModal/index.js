@@ -59,7 +59,7 @@ export default function ModifyModal({ eachData }) {
       let infoAboutTime = `${time[0]}h${time[1]}`;
 
       const response = await axios.patch(
-        `http://localhost:4000/post/${eachData.id}`,
+        `https://tech-backend-proj.herokuapp.com/posts/${eachData.id}`,
         {
           name: newName,
           content: newContent,

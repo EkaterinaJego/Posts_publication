@@ -1,8 +1,10 @@
 #card_main {
-  width: 40%;
+  min-width: 600px;
   display: flex;
-  margin-left: 25%;
   margin-top: 20px;
+  margin-bottom: 20px;
+  border: solid 0, 5px gray;
+  margin-left: 35%;
 }
 
 #maindiv {
@@ -12,11 +14,11 @@
 }
 
 .text {
-  height: 180px;
-  overflow-x: hidden;
-  text-align: center;
-  justify-content: stretch;
-  border: solid 1px red;
+  height: 120px;
+  width: 80%;
+  justify-content: flex-start;
+  border: solid 1px gray;
+  margin-bottom: 30px;
 }
 
 #modifanddeleteicons {
@@ -32,5 +34,7 @@
 }
 
 .name_div {
-  font-size: 18px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
