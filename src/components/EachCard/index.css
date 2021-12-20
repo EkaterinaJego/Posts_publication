@@ -1,0 +1,36 @@
+#card_main {
+  width: 40%;
+  display: flex;
+  margin-left: 25%;
+  margin-top: 20px;
+}
+
+#maindiv {
+  display: flex;
+  width: 100%;
+  margin: 10px;
+}
+
+.text {
+  height: 180px;
+  overflow-x: hidden;
+  text-align: center;
+  justify-content: stretch;
+  border: solid 1px red;
+}
+
+#modifanddeleteicons {
+  width: 100%;
+  display: flex;
+}
+
+#avatar {
+  width: 80px;
+  height: 80px;
+  border: solid 1px grey;
+  margin-right: 20px;
+}
+
+.name_div {
+  font-size: 18px;
+}

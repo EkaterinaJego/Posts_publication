@@ -2,8 +2,10 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 
 // import des components :
-import EachCard from "./EachCard";
-import Modal from "./Modal/index";
+import EachCard from "./components/EachCard";
+import Modal from "./components/Modal/index";
+import Loader from "./components/Loader/index";
+import ModifyModal from "./components/ModifyModal/index";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,19 +25,15 @@ function App() {
         console.log("Il n'y a pas du JSON");
       }
     });
-  }, [setData]);
+  }, [setData, data, Modal, ModifyModal]);
 
   return isLoading ? (
-    <div>Data est en train de charger</div>
+    <Loader />
   ) : (
-    <div>
+    <div className="div_base">
       <Modal />
       {data.map((eachData, key) => {
-        return (
-          <div key={eachData.id}>
-            <EachCard eachData={eachData} setData={setData} data={data} />
-          </div>
-        );
+        return <EachCard eachData={eachData} setData={setData} data={data} />;
       })}
     </div>
   );
