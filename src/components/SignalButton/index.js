@@ -8,6 +8,8 @@ export default function SignalButton({ handleSignalTag, signalTag }) {
       style={{
         backgroundColor: signalTag ? "#00304f" : "white",
         color: signalTag ? "white" : "black",
+        textTransform: "none",
+        fontSize: "19px",
       }}
       onClick={handleSignalTag}
     >

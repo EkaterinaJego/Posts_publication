@@ -13,7 +13,7 @@ import SignalButton from "../SignalButton";
 import "./index.css";
 import axios from "axios";
 
-export default function BasicModal() {
+export default function CreatePostModal() {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [name, setName] = useState("");
@@ -65,24 +65,28 @@ export default function BasicModal() {
 
       let id = Date();
 
-      const response = await axios.post(
-        "https://tech-backend-proj.herokuapp.com/posts",
-        {
-          name: name,
-          content: content,
-          signalTag: signalTag,
-          interventionTag: interventionTag,
-          day: infoAboutDay,
-          time: infoAboutTime,
-          id: id,
+      if (name && content) {
+        const response = await axios.post(
+          "https://tech-backend-proj.herokuapp.com/posts",
+          {
+            name: name,
+            content: content,
+            signalTag: signalTag,
+            interventionTag: interventionTag,
+            day: infoAboutDay,
+            time: infoAboutTime,
+            id: id,
+          }
+        );
+        if (response.status === 200 || response.status === 201) {
+          alert("Votre post a été publié");
+          console.log(response);
+          handleClose();
+          setName("");
+          setContent("");
         }
-      );
-      if (response.status === 200 || response.status === 201) {
-        alert("Votre post a été publié");
-        console.log(response);
-        handleClose();
-        setName("");
-        setContent("");
+      } else {
+        alert("Merci d'indiquer votre nom et écrire un message");
       }
     } catch (error) {
       alert("Une erreur est survenue");
@@ -99,11 +103,12 @@ export default function BasicModal() {
           color: "white",
           width: "600px",
           height: "100px",
-          fontSize: "20px",
+          fontSize: "30px",
+          textTransform: "none",
         }}
         onClick={handleOpen}
       >
-        "Hey, quoi de neuf à Orgeval ?"
+        Hey, quoi de neuf à Orgeval?
       </Button>
       <Modal
         open={open}

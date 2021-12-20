@@ -4,7 +4,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   border: solid 0, 5px gray;
-  margin-left: 35%;
+  /* margin-left: 100%; */
 }
 
 #maindiv {
@@ -19,6 +19,9 @@
   justify-content: flex-start;
   border: solid 1px gray;
   margin-bottom: 30px;
+  padding-left: 15px;
+  padding-top: 10px;
+  box-sizing: border-box;
 }
 
 #modifanddeleteicons {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 // import des components :
 import EachCard from "./components/EachCard";
-import Modal from "./components/Modal/index";
+import CreatePostModal from "./components/CreatePostModal/index";
 import Loader from "./components/Loader/index";
 import ModifyModal from "./components/ModifyModal/index";
 
@@ -27,17 +27,20 @@ function App() {
         console.log("Il n'y a pas du JSON");
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setData, data, Modal, ModifyModal]);
+  }, [setData, data, CreatePostModal, ModifyModal]);
 
   return isLoading ? (
     <Loader />
   ) : (
     <div className="div_base">
-      <Modal />
-      {data.map((eachData, key) => {
-        return <EachCard eachData={eachData} setData={setData} data={data} />;
-      })}
+      <CreatePostModal />
+      {data.length ? (
+        data.map((eachData, key) => {
+          return <EachCard eachData={eachData} setData={setData} data={data} />;
+        })
+      ) : (
+        <h1>Il n'y a pas de posts pour le moment</h1>
+      )}
     </div>
   );
 }
