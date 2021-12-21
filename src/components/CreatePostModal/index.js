@@ -5,15 +5,15 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Input from "@mui/material/Input";
 import { useState } from "react";
-import Picture from "../../picture.jpg";
+import Picture from "../../images/picture.jpg";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
-import IntButton from "../IntButton";
-import SignalButton from "../SignalButton";
 import "./index.css";
 import axios from "axios";
+import IntButton from "../IntButton";
+import SignalButton from "../SignalButton";
 
-export default function CreatePostModal() {
+const CreatePostModal = ({ setAlertText, setOpenAlert, setAlertSeverity }) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [name, setName] = useState("");
@@ -25,6 +25,7 @@ export default function CreatePostModal() {
     setSignalTag(false);
     setInterventionTag(false);
   };
+
   const handleClose = () => setOpen(false);
 
   const handleContent = (event) => {
@@ -65,7 +66,7 @@ export default function CreatePostModal() {
 
       let id = Date();
 
-      if (name && content) {
+      if (name && content && (signalTag || interventionTag)) {
         const response = await axios.post(
           "https://tech-backend-proj.herokuapp.com/posts",
           {
@@ -79,17 +80,25 @@ export default function CreatePostModal() {
           }
         );
         if (response.status === 200 || response.status === 201) {
-          alert("Votre post a été publié");
-          console.log(response);
+          setAlertSeverity("success");
+          setAlertText("Votre post a bien été créé !");
+          setOpenAlert(true);
           handleClose();
           setName("");
           setContent("");
         }
       } else {
-        alert("Merci d'indiquer votre nom et écrire un message");
+        setAlertSeverity("error");
+        setAlertText(
+          "Merci d'indiquer votre nom, prénom, d'écrire un message et de choisir au moins un tag"
+        );
+        setOpenAlert(true);
       }
     } catch (error) {
-      alert("Une erreur est survenue");
+      setAlertSeverity("error");
+      setAlertText("Une erreur est survenue");
+      setOpenAlert(true);
+      console.log(error);
     }
   };
 
@@ -154,6 +163,9 @@ export default function CreatePostModal() {
                   onChange={handleName}
                   fullWidth
                   placeholder="Nom et Prénom"
+                  inputProps={{
+                    maxLength: 40,
+                  }}
                 />
 
                 <Box
@@ -174,6 +186,9 @@ export default function CreatePostModal() {
                     maxRows="5"
                     minRows="3"
                     placeholder="Votre post..."
+                    inputProps={{
+                      maxLength: 200,
+                    }}
                   />
                 </Box>
                 <div className="btns_div">
@@ -191,7 +206,10 @@ export default function CreatePostModal() {
               </div>
             </div>
             <div id="annul_share_btns">
-              <Button style={{ color: "#2875FF" }} onClick={handleReset}>
+              <Button
+                style={{ color: "#2875FF", paddingRight: "20px" }}
+                onClick={handleReset}
+              >
                 Annuler
               </Button>
               <form onSubmit={handleSubmit}>
@@ -212,4 +230,6 @@ export default function CreatePostModal() {
       </Modal>
     </div>
   );
-}
+};
+
+export default CreatePostModal;

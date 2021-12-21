@@ -4,26 +4,28 @@ import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
 import ModifyModal from "../ModifyModal/index";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Picture from "../../picture.jpg";
+import Picture from "../../images/picture.jpg";
 import Tag from "../Tag/index";
 import axios from "axios";
-import { useState } from "react";
 
-const EachCard = ({ eachData }) => {
-  const [clicked, setClicked] = useState(false);
+const CustomCard = ({ data, setAlertText, setOpenAlert, setAlertSeverity }) => {
+  const { id, name, content, day, time } = data;
 
   // Pour effacer un post
   const handleDelete = async () => {
-    setClicked(true);
     try {
       const response = await axios.delete(
-        `https://tech-backend-proj.herokuapp.com/posts/${eachData.id}`
+        `https://tech-backend-proj.herokuapp.com/posts/${id}`
       );
       if (response) {
-        alert("Votre post a bien été supprimé");
+        setAlertSeverity("success");
+        setAlertText("Votre post a bien été supprimé !");
+        setOpenAlert(true);
       }
     } catch (error) {
-      alert("Une erreur est survenue");
+      setAlertSeverity("error");
+      setAlertText("Une erreur est survenue");
+      setOpenAlert(true);
       console.log(error);
     }
   };
@@ -31,8 +33,9 @@ const EachCard = ({ eachData }) => {
   return (
     <div
       style={{
-        width: "600px",
+        width: "800px",
         display: "flex",
+        justifyContent: "center",
       }}
     >
       <Card id="card_main">
@@ -41,7 +44,7 @@ const EachCard = ({ eachData }) => {
           <div style={{ width: "100%" }}>
             <div id="modifanddeleteicons">
               <div style={{ flex: 5 }}>
-                {eachData.day} à {eachData.time}
+                {day} à {time}
               </div>
               <div
                 style={{
@@ -51,7 +54,12 @@ const EachCard = ({ eachData }) => {
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                  <ModifyModal eachData={eachData} />
+                  <ModifyModal
+                    data={data}
+                    setAlertText={setAlertText}
+                    setOpenAlert={setOpenAlert}
+                    setAlertSeverity={setAlertSeverity}
+                  />
                   <div
                     style={{
                       display: "flex",
@@ -64,7 +72,7 @@ const EachCard = ({ eachData }) => {
                       sx={{
                         width: "30px",
                         height: "30px",
-                        color: clicked ? "red" : "gray",
+                        color: "red",
                       }}
                       onClick={handleDelete}
                     />
@@ -73,16 +81,16 @@ const EachCard = ({ eachData }) => {
               </div>
             </div>
 
-            <div className="name_div">{eachData.name}</div>
+            <div className="name_div">{name}</div>
             <div>
-              <div className="text">{eachData.content}</div>
+              <div className="text">{content}</div>
             </div>
             <div
               style={{
                 display: "flex",
               }}
             >
-              <Tag eachData={eachData} />
+              <Tag data={data} />
             </div>
           </div>
         </div>
@@ -91,4 +99,4 @@ const EachCard = ({ eachData }) => {
   );
 };
 
-export default EachCard;
+export default CustomCard;

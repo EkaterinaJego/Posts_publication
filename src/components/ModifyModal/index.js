@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import ModeIcon from "@mui/icons-material/Mode";
 import Input from "@mui/material/Input";
 import { useState } from "react";
-import Picture from "../../picture.jpg";
+import Picture from "../../images/picture.jpg";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import IntButton from "../IntButton";
@@ -14,16 +14,21 @@ import SignalButton from "../SignalButton";
 import "./index.css";
 import axios from "axios";
 
-export default function ModifyModal({ eachData }) {
+const ModifyModal = ({
+  data,
+  setAlertText,
+  setOpenAlert,
+  setAlertSeverity,
+}) => {
+  const { id, content, name, signalTag, interventionTag } = data;
   const [open, setOpen] = useState(false);
-  const [newContent, setNewContent] = useState(eachData.content);
-  const [newName, setNewName] = useState(eachData.name);
-  const [newSignalTag, setNewSignalTag] = useState(eachData.signalTag);
-  const [newInterventionTag, setNewInterventionTag] = useState(
-    eachData.interventionTag
-  );
+  const [newContent, setNewContent] = useState(content);
+  const [newName, setNewName] = useState(name);
+  const [newSignalTag, setNewSignalTag] = useState(signalTag);
+  const [newInterventionTag, setNewInterventionTag] = useState(interventionTag);
 
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => setOpen(false);
 
   const handleContent = (event) => {
@@ -35,18 +40,18 @@ export default function ModifyModal({ eachData }) {
   };
 
   const handleInterventionTag = () => {
-    setNewInterventionTag(!eachData.interventionTag);
+    setNewInterventionTag(!interventionTag);
   };
 
   const handleSignalTag = () => {
-    setNewSignalTag(!eachData.signalTag);
+    setNewSignalTag(!signalTag);
   };
 
   const handleReset = () => {
-    setNewName(eachData.name);
-    setNewContent(eachData.content);
-    setNewInterventionTag(eachData.interventionTag);
-    setNewSignalTag(eachData.signalTag);
+    setNewName(name);
+    setNewContent(content);
+    setNewInterventionTag(interventionTag);
+    setNewSignalTag(signalTag);
     handleClose();
   };
 
@@ -59,7 +64,7 @@ export default function ModifyModal({ eachData }) {
       let infoAboutTime = `${time[0]}h${time[1]}`;
 
       const response = await axios.patch(
-        `https://tech-backend-proj.herokuapp.com/posts/${eachData.id}`,
+        `https://tech-backend-proj.herokuapp.com/posts/${id}`,
         {
           name: newName,
           content: newContent,
@@ -70,11 +75,16 @@ export default function ModifyModal({ eachData }) {
         }
       );
       if (response.status === 200 || response.status === 201) {
-        alert("Votre post a bien été modifié");
+        setAlertSeverity("success");
+        setAlertText("Votre post a bien été modifié !");
+        setOpenAlert(true);
         handleClose();
       }
     } catch (error) {
-      alert("Une erreur est survenue");
+      setAlertSeverity("error");
+      setAlertText("Une erreur est survenue");
+      setOpenAlert(true);
+      console.log(error);
     }
   };
 
@@ -197,4 +207,6 @@ export default function ModifyModal({ eachData }) {
       </Modal>
     </div>
   );
-}
+};
+
+export default ModifyModal;

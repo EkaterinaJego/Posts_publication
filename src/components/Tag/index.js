@@ -3,9 +3,8 @@ import IntButton from "../IntButton";
 import SignalButton from "../SignalButton";
 import "./index.css";
 
-const Tag = ({ eachData }) => {
-  const signalTag = eachData.signalTag;
-  const interventionTag = eachData.interventionTag;
+const Tag = ({ data }) => {
+  const { signalTag, interventionTag } = data;
 
   return (
     <div
@@ -14,16 +13,10 @@ const Tag = ({ eachData }) => {
         marginLeft: "-20px",
       }}
     >
-      {eachData.interventionTag === true ? (
+      {interventionTag === true ? (
         <IntButton interventionTag={interventionTag} />
-      ) : (
-        ""
-      )}
-      {eachData.signalTag === true ? (
-        <SignalButton signalTag={signalTag} />
-      ) : (
-        ""
-      )}
+      ) : null}
+      {signalTag === true ? <SignalButton signalTag={signalTag} /> : null}
     </div>
   );
 };
