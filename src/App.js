@@ -2,16 +2,31 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 
 // import des components :
-import EachCard from "./components/EachCard";
-import CreatePostModal from "./components/CreatePostModal/index";
-import Loader from "./components/Loader/index";
+import CustomCard from "./components/CustomCard";
+import CreatePostModal from "./components/CreatePostModal";
+import Loader from "./components/Loader";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertText, setAlertText] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("success");
 
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
   // Pour récupérer l'ensemble des posts :
-
   useEffect(() => {
     fetch("https://tech-backend-proj.herokuapp.com/posts").then(function (
       response
@@ -23,7 +38,7 @@ function App() {
           setIsLoading(false);
         });
       } else {
-        console.log("Il n'y a pas du JSON");
+        console.log("Erreur - Il n'y a pas de JSON");
       }
     });
   }, [setData, data]);
@@ -32,14 +47,41 @@ function App() {
     <Loader />
   ) : (
     <div className="div_base">
-      <CreatePostModal />
+      <CreatePostModal
+        setAlertText={setAlertText}
+        setOpenAlert={setOpenAlert}
+        setAlertSeverity={setAlertSeverity}
+      />
       {data.length ? (
         data.map((eachData, key) => {
-          return <EachCard eachData={eachData} setData={setData} data={data} />;
+          return (
+            <CustomCard
+              data={eachData}
+              key={key}
+              setAlertText={setAlertText}
+              setOpenAlert={setOpenAlert}
+              setAlertSeverity={setAlertSeverity}
+            />
+          );
         })
       ) : (
-        <h1>Il n'y a pas de posts pour le moment</h1>
+        <h1 style={{ marginTop: "50px", fontSize: "22px" }}>
+          Il n'y a pas de post pour le moment
+        </h1>
       )}
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={handleCloseAlert}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity={alertSeverity}
+          sx={{ width: "100%" }}
+        >
+          {alertText}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
