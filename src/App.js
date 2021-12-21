@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import EachCard from "./components/EachCard";
 import CreatePostModal from "./components/CreatePostModal/index";
 import Loader from "./components/Loader/index";
-import ModifyModal from "./components/ModifyModal/index";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +26,7 @@ function App() {
         console.log("Il n'y a pas du JSON");
       }
     });
-  }, [setData, data, CreatePostModal, ModifyModal]);
+  }, [setData, data]);
 
   return isLoading ? (
     <Loader />

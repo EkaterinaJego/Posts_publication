@@ -149,7 +149,6 @@ export default function ModifyModal({ eachData }) {
                 >
                   <TextField
                     id="outlined-basic"
-                    label="Texte..."
                     className="text_area"
                     value={newContent}
                     onChange={handleContent}
