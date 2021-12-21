@@ -1,11 +1,13 @@
-# Test_technique : générateur des posts
+# Test_technique : post generator
 
 ## About this project
 
-Un petit logiciel pour publier les posts
+Little software to publish posts
 
 Project built with React JS and deployed on
-[_Netlify_](https://musing-edison-6034b3.netlify.app)
+[_Netlify_](https://extralab-test.netlify.app/)
+
+Backend built with Json-Server and deployed on Heroku.
 
 ## How to run the project ⚙️
 
@@ -30,8 +32,12 @@ Project built with React JS and deployed on
 - React
 - React-DOM
 
-## Backend a été construit avec Json-server et hébérgé sur Heroku
-
 ## Screenshots
 
+**Home page**
 
+<!-- ![Example screenshot](./img/screenshot.png) -->
+
+![home page]()
+
+**Modify post modal**
