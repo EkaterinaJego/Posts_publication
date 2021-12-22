@@ -35,6 +35,7 @@ Backend built with Json-Server and deployed on Heroku.
 ## Screenshots
 
 **Main page**
+![mainpage](<img width="996" alt="Capture d’écran 2021-12-22 à 10 26 04" src="https://user-images.githubusercontent.com/81118705/147070755-41602cb0-8f76-49bf-970a-fa0458f098a3.png">)
 
 **Create post**
 
