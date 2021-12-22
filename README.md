@@ -1,4 +1,4 @@
-# Test_technique : post generator
+# Test_technique : posts_publication
 
 ## About this project
 
