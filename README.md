@@ -34,10 +34,8 @@ Backend built with Json-Server and deployed on Heroku.
 
 ## Screenshots
 
-**Home page**
+**Main page**
 
-<!-- ![Example screenshot](./img/screenshot.png) -->
+**Create post**
 
-![home page]()
-
-**Modify post modal**
+**Modify post**
